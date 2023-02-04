@@ -1,0 +1,38 @@
+{% extends '_base.html' %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav mx-auto">
+          <a class="nav-link" href="#">January</a>
+          <a class="nav-link" href="#">February</a>
+          <a class="nav-link" href="#">March</a>
+          <a class="nav-link" href="#">April</a>
+          <a class="nav-link" href="#">May</a>
+          <a class="nav-link" href="#">June</a>
+          <a class="nav-link" href="#">July</a>
+          <a class="nav-link" href="#">August</a>
+          <a class="nav-link" href="#">September</a>
+          <a class="nav-link" href="#">October</a>
+          <a class="nav-link" href="#">November</a>
+          <a class="nav-link" href="#">December</a>
+        </div>
+      </div>
+      
+      
+    </div>
+
+    
+  </nav>
+
+  <div class="d-block">
+    {% for post in transaction_list %}
+        <h2><a href="{% url 'detail' post.pk %}">{{ post.Transaction_Detail }}</a></h2>
+        <p>Amount: {{post.Amount}}</p>
+  {% endfor %}
+</div>
+{% endblock %}

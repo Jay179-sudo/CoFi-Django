@@ -1,14 +1,31 @@
 <!-- templates/home.html -->
 {% extends "_base.html" %}
-{% block title %}Home{% endblock title %}
+{% block title %}CoFi-Django{% endblock title %}
 {% block content %}
-    <h1>This is our home page.</h1>
-    {% if user.is_authenticated %}
-        <p>Hi {{ user.email }}!</p>
-        <p><a href="{% url 'logout' %}">Log Out</a></p>
-    {% else %}
-        <p>You are not logged in</p>
-        <a href="{% url 'login' %}">Log In</a>
-        <a href="{% url 'signup' %}">Sign Up</a>
+<!DOCTYPE html>
+<html lang="en">
+  
+  <body>
+
+    <!-- Showcase section -->
+    <div class="container">
+        <div class="container mt-5">
+          <h1 class="display-3 text-center">Welcome to CoFi-Django!</h1>
+          <hr class="my-4" />
+          <p class="display-5 text-center">A simple finance management application for college students!</p>
+        </div>
+      </div>
+
+    <!-- Features section -->
+    <div class="container m-3 mt-5">
+        {% if user.is_authenticated %}
+        <h1 class="text-center"><a href="{% url 'transactions' %}">Go To Your Transactions!</a></h1>
+        {% else %}
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquid, possimus maxime cupiditate, architecto quaerat nulla aspernatur fuga neque soluta necessitatibus distinctio magni sunt quo! Eligendi deleniti sed debitis temporibus vel fuga accusamus, id recusandae, doloribus qui unde ea. Dolores nostrum temporibus quibusdam cumque molestiae fuga numquam omnis eius hic quis</p>
     {% endif %}
+    </div>
+    
+
+
+   
 {% endblock content %}
