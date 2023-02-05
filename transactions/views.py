@@ -2,27 +2,27 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy
-
+from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
 from .models import Transactions
-
+from .forms import TransactionForm
 class HomePageView(TemplateView):
     template_name="home.html"
 
 
 class TransactionPageView(ListView):
     context_object_name = 'transaction_list'
-    queryset = Transactions.objects.filter(Transaction_Detail='trial')
-    template_name = 'transaction_month.html'
-
-    def get_queryset(self):
-        order_by = self.request.GET.get('order_by') or '-created'
-        qs = super().get_queryset()
-        return qs.order_by(order_by)
-
-class TransactionPageViewMonth(ListView):
     model = Transactions
+    template_name = 'transactions.html'
+    
+    
+class TransactionPageViewMonth(ListView):
+    context_object_name = 'transaction_list'
     template_name = "transaction_month.html"
+    paginate_by = 4
+    def get_queryset(self):
+        qs = Transactions.objects.all().filter(Transaction_Date__month=int(self.kwargs['month']))
+        return qs
 
 # Create your views here.
 class TransactionDetailView(DetailView):
@@ -34,13 +34,20 @@ class TransactionDeleteView(DeleteView):
     template_name = "transaction_delete.html"
     success_url = reverse_lazy("home")
 
-class TransactionCreateView(CreateView):
+
+class PromiseCreateView(CreateView):
     model = Transactions
+    form_class = TransactionForm
     template_name = "transaction_create.html"
-    fields = (
-        "Transaction_Detail",
-        "Amount",
-    )
+
+
+# class TransactionCreateView(CreateView):
+#     model = Transactions
+#     template_name = "transaction_create.html"
+#     fields = (
+#         "Transaction_Detail",
+#         "Amount",
+#     )
 
 
 class TransactionUpdateView(UpdateView):

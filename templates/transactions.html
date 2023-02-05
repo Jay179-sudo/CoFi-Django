@@ -6,10 +6,9 @@
 <a href="{% url 'add' %}" class="nav-link px-2 link-dark">+ Add</a>
 {% endif %}
 
-<!-- have an option for transaction list and transaction month view -->
-<a class="navbar-brand" href="{% url 'transactions_month'%}">See Transactions by Month</a>
-{% for post in transactions_list %}
-<div class="post-entry">
+<a class="navbar-brand" href="{% url 'transactions_month' '01' %}">See Transactions by Month</a>
+{% for post in transaction_list %}
+<div class="container card">
    <!-- make a card -->
    <h2><a href="{% url 'detail' post.pk %}">{{ post.Transaction_Detail }}</a></h2>
    <p>Amount: {{post.Amount}}</p>

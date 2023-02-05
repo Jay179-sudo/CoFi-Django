@@ -8,18 +8,18 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav mx-auto">
-          <a class="nav-link" href="#">January</a>
-          <a class="nav-link" href="#">February</a>
-          <a class="nav-link" href="#">March</a>
-          <a class="nav-link" href="#">April</a>
-          <a class="nav-link" href="#">May</a>
-          <a class="nav-link" href="#">June</a>
-          <a class="nav-link" href="#">July</a>
-          <a class="nav-link" href="#">August</a>
-          <a class="nav-link" href="#">September</a>
-          <a class="nav-link" href="#">October</a>
-          <a class="nav-link" href="#">November</a>
-          <a class="nav-link" href="#">December</a>
+          <a class="nav-link" href="{% url 'transactions_month' '01' %}">January</a>
+          <a class="nav-link" href="{% url 'transactions_month' '02' %}">February</a>
+          <a class="nav-link" href="{% url 'transactions_month' '03' %}">March</a>
+          <a class="nav-link" href="{% url 'transactions_month' '04' %}">April</a>
+          <a class="nav-link" href="{% url 'transactions_month' '05' %}">May</a>
+          <a class="nav-link" href="{% url 'transactions_month' '06' %}">June</a>
+          <a class="nav-link" href="{% url 'transactions_month' '07' %}">July</a>
+          <a class="nav-link" href="{% url 'transactions_month' '08' %}">August</a>
+          <a class="nav-link" href="{% url 'transactions_month' '09' %}">September</a>
+          <a class="nav-link" href="{% url 'transactions_month' '10' %}">October</a>
+          <a class="nav-link" href="{% url 'transactions_month' '11' %}">November</a>
+          <a class="nav-link" href="{% url 'transactions_month' '12' %}">December</a>
         </div>
       </div>
       
@@ -31,8 +31,47 @@
 
   <div class="d-block">
     {% for post in transaction_list %}
+    <div class="container card">
+        <p>{{post.Transaction_Date}}</p>
         <h2><a href="{% url 'detail' post.pk %}">{{ post.Transaction_Detail }}</a></h2>
         <p>Amount: {{post.Amount}}</p>
+      </div>
   {% endfor %}
 </div>
+
+<nav aria-label="Page navigation example">
+  {% if is_paginated %}
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{page_obj.previous_page_number}}"
+        >&laquo;</a
+      >
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#">&laquo;</a>
+    </li>
+    {% endif %} 
+    {% for i in paginator.page_range %}
+     {% if page_obj.number == i %}
+    <li class="page-item"><a class="page-link active">{{ i }}</a></li>
+    {% else %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+    </li>
+    {% endif %} {% endfor %} {% if page_obj.has_next %}
+    <li class="page-item">
+      <a href="?page={{page_obj.next_page_number}}" class="page-link"
+        >&raquo;</a
+      >
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link">&raquo;</a>
+    </li>
+    {% endif %}
+  </ul>
+  {% endif %}
+</nav>
 {% endblock %}
